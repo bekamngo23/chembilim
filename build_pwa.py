@@ -1,6 +1,8 @@
 import re,time,shutil,json,os
 d='/home/claude/pwa/'
-src=open('/home/claude/site/pub/chembilim-offline.html').read()
+import subprocess
+subprocess.run(['node','/home/claude/minify/min.mjs','/home/claude/site/pub/chembilim-offline.html','/tmp/chb-min.html'],check=True)
+src=open('/tmp/chb-min.html').read()
 ver=time.strftime('%Y%m%d%H%M')
 head='''<meta name="theme-color" content="#1b6a9c">
 <meta name="description" content="chembilim — қазақ тіліндегі интерактивті химия: сабақтар, 3D модельдер, бейне-сабақтар, тесттер.">
