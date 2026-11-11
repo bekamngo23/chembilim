@@ -1,6 +1,6 @@
 /* chembilim офлайн кэші */
-const V="chembilim-202611101140";
-const CORE=["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png","./icon-180.png","./icon-maskable-512.png"];
+const V="chembilim-202611111956";
+const CORE=["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png","./icon-180.png","./icon-maskable-512.png"].concat(["./vo2/atom.mp3", "./vo2/rxn.mp3", "./vo2/acid.mp3", "./vo2/titr.mp3", "./vo2/ppt.mp3", "./vo2/table.mp3", "./vo2/air.mp3", "./vo2/bread.mp3", "./vo2/dissolve.mp3"]);
 self.addEventListener("install",e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)));});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k.startsWith("chembilim-")).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener("fetch",e=>{const r=e.request;if(r.method!=="GET")return;const u=new URL(r.url);

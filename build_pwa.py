@@ -3,6 +3,15 @@ d='/home/claude/pwa/'
 import subprocess
 subprocess.run(['node','/home/claude/minify/min.mjs','/home/claude/site/pub/chembilim-offline.html','/tmp/chb-min.html'],check=True)
 src=open('/tmp/chb-min.html').read()
+# V84: бейне дыбыстарын (≈4 МБ) HTML-ден бөлек mp3 файлдарға шығарамыз — бет тезірек ашылады
+import base64,os,re as _re
+os.makedirs(d+'vo2',exist_ok=True)
+VO2=[]
+def _cut(m):
+    k=m.group(2);open(d+'vo2/'+k+'.mp3','wb').write(base64.b64decode(m.group(3)));VO2.append('./vo2/'+k+'.mp3')
+    return m.group(1)+k+m.group(1)+':"vo2/'+k+'.mp3"'
+src=_re.sub(r'(["\']?)(\w+)\1\s*:\s*"data:audio/mpeg;base64,([A-Za-z0-9+/=]+)"',_cut,src)
+print('audio files',len(VO2))
 ver=time.strftime('%Y%m%d%H%M')
 head='''<meta name="theme-color" content="#1b6a9c">
 <meta name="description" content="chembilim — қазақ тіліндегі интерактивті химия: сабақтар, 3D модельдер, бейне-сабақтар, тесттер.">
@@ -59,7 +68,7 @@ man={"name":"chembilim — интерактивті химия","short_name":"ch
 json.dump(man,open(d+'manifest.webmanifest','w'),ensure_ascii=False,indent=1)
 sw='''/* chembilim офлайн кэші */
 const V="chembilim-%s";
-const CORE=["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png","./icon-180.png","./icon-maskable-512.png"];
+const CORE=["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png","./icon-180.png","./icon-maskable-512.png"].concat(%s);
 self.addEventListener("install",e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)));});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k.startsWith("chembilim-")).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener("fetch",e=>{const r=e.request;if(r.method!=="GET")return;const u=new URL(r.url);
@@ -67,7 +76,7 @@ self.addEventListener("fetch",e=>{const r=e.request;if(r.method!=="GET")return;c
  if(u.origin===location.origin){e.respondWith(caches.match(r).then(m=>m||fetch(r).then(res=>{const cp=res.clone();caches.open(V).then(c=>c.put(r,cp));return res;})));return;}
  if(/fonts\\.(googleapis|gstatic)\\.com$/.test(u.hostname)){e.respondWith(caches.open(V+"-fonts").then(c=>c.match(r).then(m=>{const f=fetch(r).then(res=>{c.put(r,res.clone());return res;}).catch(()=>m);return m||f;})));}
 });
-'''%ver
+'''%(ver,json.dumps(VO2))
 open(d+'sw.js','w').write(sw)
 open(d+'.nojekyll','w').write('')
 print('ok',len(src),ver)
