@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bekamngo23.github.io/chembilim/sitemap.xml

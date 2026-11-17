@@ -62,6 +62,11 @@ if(mobile&&isIOS)setTimeout(show,2500);
 </script>
 '''
 src=src.replace('</body></html>',ui+'</body></html>')
+# V111: JavaScript-сіз оқитын құралдар мен іздеу жүйелері үшін мәтіндік кіріспе және сілтемелер
+ns='<noscript><div style="max-width:760px;margin:24px auto;padding:0 16px;font:17px/1.6 sans-serif"><h1>chembilim — қазақ тіліндегі интерактивті химия</h1><p>Сабақтар, 3D түсіндірмелер, виртуалды зертхана, сапалық реакциялар анықтамалығы, есептер мен тесттер. Интерактив бөліктер JavaScript қосулы кезде ашылады.</p><p><a href="learn/index.html">Барлық сабақтардың мәтіндік нұсқасы</a> · <a href="learn/reactions.html">Сапалық реакциялар</a> · <a href="learn/glossary.html">Терминдер сөздігі</a></p></div></noscript>'
+src=_re.sub(r'(<body[^>]*>)',lambda m:m.group(1)+ns,src,count=1)
+assert 'learn/index.html' in src
+src=src.replace('<meta name="description"','<link rel="alternate" type="text/html" href="learn/index.html" title="Мәтіндік нұсқа">\n<meta name="description"',1)
 open(d+'index.html','w').write(src)
 man={"name":"chembilim — интерактивті химия","short_name":"chembilim","description":"Қазақ тіліндегі интерактивті химия: сабақтар, 3D модельдер, бейне-сабақтар, тесттер.","lang":"kk","start_url":"./","scope":"./","display":"standalone","orientation":"any","background_color":"#0d1a24","theme_color":"#1b6a9c","categories":["education"],
  "icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"},{"src":"icon-maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]}
@@ -80,3 +85,4 @@ self.addEventListener("fetch",e=>{const r=e.request;if(r.method!=="GET")return;c
 open(d+'sw.js','w').write(sw)
 open(d+'.nojekyll','w').write('')
 print('ok',len(src),ver)
+subprocess.run(['node',d+'gen_static.js','/home/claude/site/pub/chembilim-offline.html',d],check=True)
