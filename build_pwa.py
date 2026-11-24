@@ -21,7 +21,7 @@ head='''<meta name="theme-color" content="#1b6a9c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="chembilim">
+<meta name="apple-mobile-web-app-title" content="ChemBilim">
 '''
 src=src.replace('<meta name="viewport" content="width=device-width, initial-scale=1">','<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'+head,1)
 assert 'manifest.webmanifest' in src
@@ -52,7 +52,7 @@ var mobile=isIOS||/android/i.test(navigator.userAgent);
 var deferred=null;
 window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferred=e;show();});
 function show(){if(document.querySelector(".pwa-bar"))return;var b=document.createElement("div");b.className="pwa-bar";b.setAttribute("role","dialog");b.setAttribute("aria-label","Қосымшаны орнату");
- b.innerHTML='<img src="icon-192.png" alt=""><div><b>chembilim қосымшасы</b><small>Телефонға орнатып, интернетсіз ашыңыз</small></div><button type="button" class="pwa-go">Орнату</button><button type="button" class="pwa-x" aria-label="Жабу">×</button>';
+ b.innerHTML='<img src="icon-192.png" alt=""><div><b>ChemBilim қосымшасы</b><small>Телефонға орнатып, интернетсіз ашыңыз</small></div><button type="button" class="pwa-go">Орнату</button><button type="button" class="pwa-x" aria-label="Жабу">×</button>';
  document.body.appendChild(b);
  b.querySelector(".pwa-x").onclick=function(){b.remove();ls("pwa-hide","1");};
  b.querySelector(".pwa-go").onclick=function(){if(deferred){deferred.prompt();deferred.userChoice.then(function(){b.remove();deferred=null;});}else if(isIOS){iosHelp();}else{alert("Браузер мәзірінен «Установить приложение» немесе «Добавить на главный экран» таңдаңыз.");}};}
@@ -68,7 +68,7 @@ src=_re.sub(r'(<body[^>]*>)',lambda m:m.group(1)+ns,src,count=1)
 assert 'learn/index.html' in src
 src=src.replace('<meta name="description"','<link rel="alternate" type="text/html" href="learn/index.html" title="Мәтіндік нұсқа">\n<meta name="description"',1)
 open(d+'index.html','w').write(src)
-man={"name":"chembilim — интерактивті химия","short_name":"chembilim","description":"Қазақ тіліндегі интерактивті химия: сабақтар, 3D модельдер, бейне-сабақтар, тесттер.","lang":"kk","start_url":"./","scope":"./","display":"standalone","orientation":"any","background_color":"#0d1a24","theme_color":"#1b6a9c","categories":["education"],
+man={"name":"ChemBilim — интерактивті химия","short_name":"ChemBilim","description":"Қазақ тіліндегі интерактивті химия: сабақтар, 3D модельдер, бейне-сабақтар, тесттер.","lang":"kk","start_url":"./","scope":"./","display":"standalone","orientation":"any","background_color":"#ffffff","theme_color":"#1b6a9c","categories":["education"],
  "icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"},{"src":"icon-maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]}
 json.dump(man,open(d+'manifest.webmanifest','w'),ensure_ascii=False,indent=1)
 sw='''/* chembilim офлайн кэші */

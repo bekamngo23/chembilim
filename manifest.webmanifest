@@ -1,13 +1,13 @@
 {
- "name": "chembilim — интерактивті химия",
- "short_name": "chembilim",
+ "name": "ChemBilim — интерактивті химия",
+ "short_name": "ChemBilim",
  "description": "Қазақ тіліндегі интерактивті химия: сабақтар, 3D модельдер, бейне-сабақтар, тесттер.",
  "lang": "kk",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
  "orientation": "any",
- "background_color": "#0d1a24",
+ "background_color": "#ffffff",
  "theme_color": "#1b6a9c",
  "categories": [
   "education"
