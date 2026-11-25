@@ -12,6 +12,41 @@ def _cut(m):
     return m.group(1)+k+m.group(1)+':"vo2/'+k+'.mp3"'
 src=_re.sub(r'(["\']?)(\w+)\1\s*:\s*"data:audio/mpeg;base64,([A-Za-z0-9+/=]+)"',_cut,src)
 print('audio files',len(VO2))
+# V161: суреттер мен бейнелерді (≈4,5 МБ) HTML-ден бөлек файлдарға шығарамыз — бет әлдеқайда тез ашылады
+import hashlib
+os.makedirs(d+'img',exist_ok=True)
+for _f in os.listdir(d+'img'):os.remove(d+'img/'+_f)
+IMGS=[];_EXT={'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/gif':'gif','video/mp4':'mp4','video/webm':'webm'}
+def _icut(m):
+    b=m.group(3)
+    if len(b)<2500:return m.group(0)
+    raw=base64.b64decode(b);n=hashlib.sha1(raw).hexdigest()[:14]+'.'+_EXT[m.group(2)]
+    if not os.path.exists(d+'img/'+n):open(d+'img/'+n,'wb').write(raw);IMGS.append('./img/'+n)
+    return m.group(1)+'img/'+n+m.group(1)
+src=_re.sub(r'(["\'])data:(image/jpeg|image/png|image/webp|image/gif|video/mp4|video/webm);base64,([A-Za-z0-9+/=]+)\1',_icut,src)
+def _fcut(m):
+    raw=base64.b64decode(m.group(1));n=hashlib.sha1(raw).hexdigest()[:14]+'.woff2'
+    if not os.path.exists(d+'img/'+n):open(d+'img/'+n,'wb').write(raw);IMGS.append('./img/'+n)
+    return 'url(img/'+n+')'
+src=_re.sub(r'url\(["\']?data:font/woff2;base64,([A-Za-z0-9+/=]+)["\']?\)',_fcut,src)
+# V161: three.js (≈700 КБ) бөлек файлға — 3D қажет болғанда ғана жүктеледі
+_tm=None
+for _m in _re.finditer(r'<script>(.*?)</script>',src,_re.S):
+    if 'REVISION' in _m.group(1) and 'GLTFLoader' in _m.group(1):_tm=_m;break
+if _tm:
+    _tn='three-'+hashlib.sha1(_tm.group(1).encode()).hexdigest()[:10]+'.js'
+    for _f in os.listdir(d):
+        if _f.startswith('three-') and _f.endswith('.js'):os.remove(d+_f)
+    open(d+_tn,'w').write(_tm.group(1))
+    _lz='<script>(function(){var done=false,U="'+_tn+'";function run(t){if(done)return;done=true;(0,eval)(t);}'+\
+     'function sync(){if(done)return;var x=new XMLHttpRequest();x.open("GET",U,false);x.send();run(x.responseText);}'+\
+     '["THREE","MeshoptDecoder"].forEach(function(k){Object.defineProperty(window,k,{configurable:true,get:function(){delete window[k];sync();return window[k];},set:function(v){Object.defineProperty(window,k,{value:v,writable:true,configurable:true,enumerable:true});}});});'+\
+     'function lazy(){if(done)return;fetch(U).then(function(r){return r.text();}).then(function(t){setTimeout(function(){run(t);},0);}).catch(function(){});}'+\
+     'if(document.readyState==="complete")setTimeout(lazy,2500);else addEventListener("load",function(){setTimeout(lazy,2500);});})();</script>'
+    src=src[:_tm.start()]+_lz+src[_tm.end():]
+    IMGS.append('./'+_tn)
+    print('three bundle',len(_tm.group(1))//1024,'KB')
+print('image files',len(IMGS),sum(os.path.getsize(d+x[2:]) for x in IMGS)//1024,'KB')
 ver=time.strftime('%Y%m%d%H%M')
 head='''<meta name="theme-color" content="#1b6a9c">
 <meta name="description" content="chembilim — қазақ тіліндегі интерактивті химия: сабақтар, 3D модельдер, бейне-сабақтар, тесттер.">
@@ -75,13 +110,15 @@ sw='''/* chembilim офлайн кэші */
 const V="chembilim-%s";
 const CORE=["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png","./icon-180.png","./icon-maskable-512.png"].concat(%s);
 self.addEventListener("install",e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)));});
-self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k.startsWith("chembilim-")).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
+const IC="chbimg-1",IMGS=%s;
+self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k.startsWith("chembilim-")).map(k=>caches.delete(k)))).then(()=>self.clients.claim()).then(()=>{caches.open(IC).then(c=>c.keys().then(ks=>{const want=new Set(IMGS.map(x=>new URL(x,location).href));ks.forEach(k=>{if(!want.has(k.url))c.delete(k);});const have=new Set(ks.map(k=>k.url));IMGS.forEach(x=>{const h=new URL(x,location).href;if(!have.has(h))c.add(x).catch(()=>{});});}));}));});
 self.addEventListener("fetch",e=>{const r=e.request;if(r.method!=="GET")return;const u=new URL(r.url);
  if(r.mode==="navigate"){e.respondWith(fetch(r).then(res=>{const cp=res.clone();caches.open(V).then(c=>c.put("./index.html",cp));return res;}).catch(()=>caches.match("./index.html")));return;}
+ if(u.origin===location.origin&&u.pathname.indexOf("/img/")>=0){e.respondWith(caches.open(IC).then(c=>c.match(r).then(m=>m||fetch(r).then(res=>{if(res.ok)c.put(r,res.clone());return res;}))));return;}
  if(u.origin===location.origin){e.respondWith(caches.match(r).then(m=>m||fetch(r).then(res=>{const cp=res.clone();caches.open(V).then(c=>c.put(r,cp));return res;})));return;}
  if(/fonts\\.(googleapis|gstatic)\\.com$/.test(u.hostname)){e.respondWith(caches.open(V+"-fonts").then(c=>c.match(r).then(m=>{const f=fetch(r).then(res=>{c.put(r,res.clone());return res;}).catch(()=>m);return m||f;})));}
 });
-'''%(ver,json.dumps(VO2))
+'''%(ver,json.dumps(VO2),json.dumps(IMGS))
 open(d+'sw.js','w').write(sw)
 open(d+'.nojekyll','w').write('')
 print('ok',len(src),ver)
