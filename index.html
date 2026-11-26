@@ -5313,4 +5313,70 @@ function iosHelp(){var o=document.createElement("div");o.className="pwa-ios";o.i
 if(mobile&&isIOS)setTimeout(show,2500);
 })();
 </script>
+<style>/* V165: Кристалл стиліндегі анимация — баяу әрі жұмсақ (бұрынғы әдемі ырғақ) */
+@keyframes crIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes crCard{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+:root[data-sty="ref"] #main.pg-in>*{animation:crIn .8s cubic-bezier(.22,1,.36,1) both}
+:root[data-sty="ref"] #main.pg-in>*:nth-child(2){animation-delay:.08s}
+:root[data-sty="ref"] #main.pg-in>*:nth-child(3){animation-delay:.16s}
+:root[data-sty="ref"] #main.pg-in>*:nth-child(4){animation-delay:.24s}
+:root[data-sty="ref"] #main.pg-in>*:nth-child(n+5){animation-delay:.3s}
+:root[data-sty="ref"] #main.pg-in :is(.cs-grid,.ms-grid,.nf-cg,.hub-grid,.x3g)>*{animation:crCard .75s cubic-bezier(.22,1,.36,1) var(--pgd,.15s) both}
+:root[data-sty="ref"] #main.n24-home .hm-c{animation:crCard .75s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(.2s + var(--i,0)*70ms)}
+:root[data-sty="ref"] #main.n24-home .n24-t{animation:crCard .7s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(.15s + var(--k,0)*60ms)}
+:root[data-sty="ref"] .rv-card{animation:crIn .8s cubic-bezier(.22,1,.36,1) .2s both}
+:root[data-sty="ref"] :is(.btn,.chip,.tab,.cs-c,.hm-c,.x3g-c,.rv-o,.tn a){transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease,transform .3s ease}
+@media (min-width:1100px){
+ :root[data-sty="ref"] .top{transition:width .45s cubic-bezier(.22,1,.36,1)}
+ :root[data-sty="ref"] body{transition:padding-left .45s cubic-bezier(.22,1,.36,1)}
+ :root[data-sty="ref"] :is(.tn a .nt,.btx,.lg-t){transition:opacity .35s ease}
+ :root[data-sty="ref"] .sb-tg svg{transition:transform .45s cubic-bezier(.22,1,.36,1)}
+}
+@media (max-width:767px){:root[data-sty="ref"] .top{transition:transform .4s cubic-bezier(.22,1,.36,1)}}
+@media (prefers-reduced-motion:reduce){:root[data-sty="ref"] #main.pg-in>*,:root[data-sty="ref"] #main.pg-in :is(.cs-grid,.ms-grid,.nf-cg,.hub-grid,.x3g)>*,:root[data-sty="ref"] #main.n24-home :is(.hm-c,.n24-t),:root[data-sty="ref"] .rv-card{animation:none!important}}
+html.look-calm[data-sty="ref"] #main *{animation:none!important}</style>
+<script>
+/* ===== V166: Өнеркәсіп химиясы — MP4 бейне-сабақтар (домна, алюминий) ===== */
+(function(){
+var MV=[
+ {id:"domna",n:"Домна пеші: кеннен болатқа",d:"Теміртаудағы домна пешінде темір қалай алынады: шикізат, кокс, иіс газы (CO) және тотықсыздану.",src:"video/domna.mp4",poster:"video/domna.jpg",dur:"1:25",
+  eq:"Fe₂O₃ + 3CO → 2Fe + 3CO₂",ch:[["Темір",1.6],["Домна",11.6],["Шикізат",20.9],["Кокс → CO",30.5],["Тотықсыздану",44.0],["Шойын мен болат",63.8]]},
+ {id:"aluminiy",n:"Павлодар алюминийі",d:"Бокситтен глиноземге, электролизден дайын бұйымға дейін: алюминий қалай алынады және неге оны қайта өңдеу керек.",src:"video/aluminiy.mp4",poster:"video/aluminiy.jpg",dur:"1:22",
+  eq:"2Al₂O₃ → 4Al + 3O₂ (электролиз)",ch:[["Банка мен ұшақ",0],["Жер қыртысы",7.2],["Боксит",14.0],["Глинозем",22.0],["Электролиз",29.4],["Құю",50.9],["Қасиеттері",57.4],["Қайта өңдеу",66.0]]}];
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function head(a,b,c){return typeof pageHead==="function"?pageHead(a,b,c):'<h1>'+esc(b)+'</h1><p>'+esc(c)+'</p>';}
+function fmt(s){s=Math.round(s);return Math.floor(s/60)+":"+("0"+s%60).slice(-2);}
+var css=document.createElement("style");css.textContent=
+ ".mv-sec h2{font-size:20px;margin:20px 0 4px}.mv-sec>p{margin:0;color:var(--ink2);font-size:14px}"+
+ ".nf-vc .mv-img{position:relative;display:block;border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:var(--bench)}"+
+ ".nf-vc .mv-img img{width:100%;height:100%;object-fit:cover;display:block}"+
+ ".nf-vc .mv-img i{position:absolute;inset:auto auto 10px 10px;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center}"+
+ ".nf-vc .mv-img i:after{content:'';margin-left:4px;border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent}"+
+ ".nf-vc .mv-new{align-self:flex-start;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--gen);color:#fff}"+
+ ".mv-box{max-width:960px;margin:0 auto}.mv-box video{display:block;width:100%;aspect-ratio:16/9;border-radius:14px;background:#000}"+
+ ".mv-ch{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.mv-ch button{min-height:44px}"+
+ ".mv-eq{margin:8px 0 0;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:18px}";
+document.head.appendChild(css);
+function card(v){return '<a class="nf-vc" href="#videos/'+v.id+'"><span class="mv-img"><img src="'+v.poster+'" alt="" loading="lazy" width="960" height="540"><i aria-hidden="true"></i></span><span class="mv-new">Жаңа</span><b>'+esc(v.n)+'</b><p>'+esc(v.d)+'</p><span>'+v.dur+' · '+v.ch.length+' бөлім</span></a>';}
+function wrap(){
+ var old=(typeof PAGES!=="undefined"&&PAGES.videos)||(window.NF&&NF.videoPage);if(!old||old.__mv)return;
+ var f=function(main,tab){
+  var cur=MV.filter(function(v){return v.id===tab;})[0];
+  if(!cur){old(main,tab);if(!tab){var g=main.querySelector(".nf-vg");if(g&&!main.querySelector(".mv-sec")){var s=document.createElement("section");s.className="mv-sec";
+   s.innerHTML='<h2>Қазақстан өнеркәсібі</h2><p>Нағыз зауыттардағы химия — диктор дауысымен, 1,5 минуттық бейнелер.</p><div class="nf-vg">'+MV.map(card).join("")+'</div><h2>Анимациялық сабақтар</h2>';
+   g.parentNode.insertBefore(s,g);}}return;}
+  main.className="main wide part-a";
+  main.innerHTML=head("Бейне-сабақтар",cur.n,cur.d)+'<p><a class="btn" href="#videos">← Барлық бейне</a></p>'+
+   '<section class="tool nf mv-box"><video controls playsinline preload="metadata" poster="'+cur.poster+'" src="'+cur.src+'" aria-label="'+esc(cur.n)+'"></video>'+
+   '<div class="mv-ch" role="group" aria-label="Бөлімдер">'+cur.ch.map(function(c,i){return '<button type="button" class="pill" data-t="'+c[1]+'">'+(i+1)+'. '+esc(c[0])+' <small>'+fmt(c[1])+'</small></button>';}).join("")+'</div>'+
+   '<p class="mv-eq">Негізгі теңдеу: '+cur.eq+'</p></section>';
+  var vd=main.querySelector("video");
+  Array.prototype.forEach.call(main.querySelectorAll(".mv-ch button"),function(b){b.addEventListener("click",function(){try{vd.currentTime=+b.getAttribute("data-t");vd.play();}catch(e){}});});
+ };
+ f.__mv=true;if(typeof PAGES!=="undefined")PAGES.videos=f;if(window.NF)NF.videoPage=f;
+ try{if(/^#videos/.test(location.hash||"")&&typeof route==="function"){if(typeof curKey!=="undefined")curKey=null;route();}}catch(e){}
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wrap);else wrap();
+})();
+</script>
 </body></html>
