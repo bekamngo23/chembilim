@@ -5336,7 +5336,7 @@ if(mobile&&isIOS)setTimeout(show,2500);
 @media (prefers-reduced-motion:reduce){:root[data-sty="ref"] #main.pg-in>*,:root[data-sty="ref"] #main.pg-in :is(.cs-grid,.ms-grid,.nf-cg,.hub-grid,.x3g)>*,:root[data-sty="ref"] #main.n24-home :is(.hm-c,.n24-t),:root[data-sty="ref"] .rv-card{animation:none!important}}
 html.look-calm[data-sty="ref"] #main *{animation:none!important}</style>
 <script>
-/* ===== V166: Өнеркәсіп химиясы — MP4 бейне-сабақтар (домна, алюминий) ===== */
+/* ===== V168: бейне-сабақтар — бірыңғай ойнатқыш (MP4 және анимация бірдей) ===== */
 (function(){
 var MV=[
  {id:"domna",n:"Домна пеші: кеннен болатқа",d:"Теміртаудағы домна пешінде темір қалай алынады: шикізат, кокс, иіс газы (CO) және тотықсыздану.",src:"video/domna.mp4",poster:"video/domna.jpg",dur:"1:25",
@@ -5345,87 +5345,125 @@ var MV=[
   eq:"2Al₂O₃ → 4Al + 3O₂ (электролиз)",ch:[["Банка мен ұшақ",0],["Жер қыртысы",7.2],["Боксит",14.0],["Глинозем",22.0],["Электролиз",29.4],["Құю",50.9],["Қасиеттері",57.4],["Қайта өңдеу",66.0]]}];
 function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 function head(a,b,c){return typeof pageHead==="function"?pageHead(a,b,c):'<h1>'+esc(b)+'</h1><p>'+esc(c)+'</p>';}
-function fmt(s){s=Math.round(s);return Math.floor(s/60)+":"+("0"+s%60).slice(-2);}
-var css=document.createElement("style");css.textContent=
- ".mv-sec h2{font-size:20px;margin:20px 0 4px}.mv-sec>p{margin:0;color:var(--ink2);font-size:14px}"+
- ".nf-vc .mv-img{position:relative;display:block;border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:var(--bench)}"+
- ".nf-vc .mv-img img{width:100%;height:100%;object-fit:cover;display:block}"+
- ".nf-vc .mv-img i{position:absolute;inset:auto auto 10px 10px;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center}"+
- ".nf-vc .mv-img i:after{content:'';margin-left:4px;border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent}"+
- ".nf-vc .mv-new{align-self:flex-start;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--gen);color:#fff}"+
- ".mv-box{max-width:960px;margin:0 auto}.mv-box video{display:block;width:100%;aspect-ratio:16/9;border-radius:14px;background:#000}"+
- ".mv-ch{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.mv-ch button{min-height:44px}"+
- ".mv-eq{margin:8px 0 0;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:18px}";
-document.head.appendChild(css);
-function card(v){return '<a class="nf-vc" href="#videos/'+v.id+'"><span class="mv-img"><img src="'+v.poster+'" alt="" loading="lazy" width="960" height="540"><i aria-hidden="true"></i></span><span class="mv-new">Жаңа</span><b>'+esc(v.n)+'</b><p>'+esc(v.d)+'</p><span>'+v.dur+' · '+v.ch.length+' бөлім</span></a>';}
-function wrap(){
- var old=(typeof PAGES!=="undefined"&&PAGES.videos)||(window.NF&&NF.videoPage);if(!old||old.__mv)return;
- var f=function(main,tab){
-  var cur=MV.filter(function(v){return v.id===tab;})[0];
-  if(!cur){old(main,tab);if(!tab){var g=main.querySelector(".nf-vg");if(g&&!main.querySelector(".mv-sec")){var s=document.createElement("section");s.className="mv-sec";
-   s.innerHTML='<h2>Қазақстан өнеркәсібі</h2><p>Нағыз зауыттардағы химия — диктор дауысымен, 1,5 минуттық бейнелер.</p><div class="nf-vg">'+MV.map(card).join("")+'</div><h2>Анимациялық сабақтар</h2>';
-   g.parentNode.insertBefore(s,g);}}return;}
-  main.className="main wide part-a";
-  main.innerHTML=head("Бейне-сабақтар",cur.n,cur.d)+'<p><a class="btn" href="#videos">← Барлық бейне</a></p>'+
-   '<section class="tool nf mv-box"><video controls playsinline preload="metadata" poster="'+cur.poster+'" src="'+cur.src+'" aria-label="'+esc(cur.n)+'"></video>'+
-   '<div class="mv-ch" role="group" aria-label="Бөлімдер">'+cur.ch.map(function(c,i){return '<button type="button" class="pill" data-t="'+c[1]+'">'+(i+1)+'. '+esc(c[0])+' <small>'+fmt(c[1])+'</small></button>';}).join("")+'</div>'+
-   '<p class="mv-eq">Негізгі теңдеу: '+cur.eq+'</p></section>';
-  var vd=main.querySelector("video");
-  Array.prototype.forEach.call(main.querySelectorAll(".mv-ch button"),function(b){b.addEventListener("click",function(){try{vd.currentTime=+b.getAttribute("data-t");vd.play();}catch(e){}});});
- };
- f.__mv=true;if(typeof PAGES!=="undefined")PAGES.videos=f;if(window.NF)NF.videoPage=f;
- try{if(/^#videos/.test(location.hash||"")&&typeof route==="function"){if(typeof curKey!=="undefined")curKey=null;route();}}catch(e){}
-}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wrap);else wrap();
-})();
-</script>
-<script>
-/* ===== V167: бейне ойнатқыштың бірыңғай стилі (MP4 сияқты) ===== */
-(function(){
-var css=document.createElement("style");css.textContent=
- ".nf-vc .mv-img canvas{width:100%!important;height:100%!important;aspect-ratio:auto!important;border-radius:0!important;display:block}"+
- ".mvx{padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;max-width:960px;margin:0 auto}"+
- ".mvx .nfv2-cv{position:relative!important;background:#000!important;border:0!important;border-radius:14px!important;overflow:hidden!important;max-width:none!important}"+
- ".mvx>.nf-ctl{display:none!important}.mvx .nfv2-fs{display:none!important}"+
- ".mvx .mvx-bar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:6px;padding:30px 10px 8px;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.65));color:#fff;z-index:8;transition:opacity .3s}"+
- ".mvx.mvx-idle .mvx-bar{opacity:0;pointer-events:none}.mvx.mvx-idle .nfv2-cv{cursor:none}"+
- ".mvx .mvx-bar button{flex:none;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:0;border-radius:8px;background:transparent;color:#fff;cursor:pointer;padding:0}"+
- ".mvx .mvx-bar button:hover{background:rgba(255,255,255,.14)}.mvx .mvx-bar button:focus-visible{outline:2px solid #fff;outline-offset:1px}"+
- ".mvx .mvx-bar button.off{opacity:.5}.mvx .mvx-bar svg{width:22px;height:22px;fill:currentColor}"+
- ".mvx .mvx-bar .nfv2-trk{flex:1;min-width:60px;position:relative}.mvx .mvx-bar #vr{width:100%;accent-color:#fff;margin:0}"+
- ".mvx .mvx-bar .nfv2-tk i{background:rgba(255,255,255,.5)!important}"+
- ".mvx .mvx-bar #vt{color:#fff!important;font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}"+
- ".mvx .nfv2-cv #vs{position:absolute!important;left:50%!important;bottom:62px!important;transform:translateX(-50%)!important;width:auto!important;max-width:88%!important;min-height:0!important;margin:0!important;padding:6px 14px!important;"+
-  "border:0!important;border-radius:8px!important;background:rgba(0,0,0,.72)!important;color:#fff!important;font-size:clamp(13px,2.1vw,19px)!important;line-height:1.4!important;text-align:center;z-index:7;display:block!important}"+
- ".mvx .nfv2-cv #vs:empty{display:none!important}"+
- ".mvx:is(:fullscreen,.nfv2-pfs){background:#000!important;max-width:none!important;margin:0!important;display:flex!important;align-items:center;justify-content:center}"+".mvx:is(:fullscreen,.nfv2-pfs) .nfv2-cv{width:100%!important;height:100%!important;border-radius:0!important;display:flex!important;align-items:center;justify-content:center;aspect-ratio:auto!important}"+".mvx:is(:fullscreen,.nfv2-pfs) .nfv2-cv canvas{width:100%!important;height:auto!important;max-height:100%!important;object-fit:contain}"+"@media (max-width:600px){.mvx .mvx-bar{gap:0;padding:22px 2px 2px}.mvx .mvx-bar button{width:34px;height:34px}.mvx .mvx-bar svg{width:20px;height:20px}.mvx .mvx-bar #vt{font-size:11px}"+".mvx:not(:fullscreen):not(.nfv2-pfs) .nfv2-cv{display:flex!important;flex-direction:column}.mvx:not(:fullscreen):not(.nfv2-pfs) .nfv2-cv .mvx-bar{position:relative;order:3;background:#000;padding:2px}"+".mvx:not(:fullscreen):not(.nfv2-pfs) .nfv2-cv #vs{position:static!important;transform:none!important;max-width:none!important;border-radius:0!important;background:#111!important;font-size:14px!important;order:2}}";
+function fmt(s){s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+":"+("0"+s%60).slice(-2);}
+function $$(r,q){return Array.prototype.slice.call(r.querySelectorAll(q));}
+var css=document.createElement("style");css.textContent=[
+ /* тізім карточкалары */
+ ".mv-sec h2{font-size:20px;margin:20px 0 4px}.mv-sec>p{margin:0;color:var(--ink2);font-size:14px}",
+ ".nf-vc .mv-img{position:relative;display:block;border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:var(--bench)}",
+ ".nf-vc .mv-img img,.nf-vc .mv-img canvas{width:100%!important;height:100%!important;aspect-ratio:auto!important;border-radius:0!important;object-fit:cover;display:block}",
+ ".nf-vc .mv-img i{position:absolute;left:10px;bottom:10px;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center}",
+ ".nf-vc .mv-img i:after{content:'';margin-left:4px;border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent}",
+ ".nf-vc .mv-new{align-self:flex-start;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--gen);color:#fff}",
+ /* ойнатқыш */
+ ".mvx{max-width:960px!important;margin:0 auto!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important}",
+ ".mvx .mvx-stage{position:relative}",
+ ".mvx .nfv2-cv{position:relative!important;max-width:none!important;width:100%!important;margin:0!important;aspect-ratio:16/9!important;background:#000!important;border:0!important;border-radius:14px!important;overflow:hidden!important;display:flex!important;align-items:center;justify-content:center}",
+ ".mvx .nfv2-cv>canvas,.mvx .nfv2-cv>video{display:block;width:100%!important;height:100%!important;max-height:100%!important;aspect-ratio:auto!important;object-fit:contain;background:#000;border-radius:0!important}",
+ ".mvx>.nf-ctl,.mvx .nfv2-fs{display:none!important}",
+ ".mvx .nfv2-big{position:absolute!important;inset:0!important;margin:auto!important;width:84px!important;height:84px!important;border-radius:50%!important;border:0!important;background:rgba(0,0,0,.55)!important;color:#fff!important;display:flex!important;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.35)!important;z-index:6;padding:0!important}",
+ ".mvx .nfv2-big[hidden],.mvx .nfv2-big.mvx-h{display:none!important}.mvx .nfv2-big svg{width:40px;height:40px;fill:#fff;margin-left:4px}",
+ ".mvx .mvx-bar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:6px;padding:34px 12px 8px;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.7));color:#fff;z-index:8;transition:opacity .3s}",
+ ".mvx.mvx-idle .mvx-bar{opacity:0;pointer-events:none}.mvx.mvx-idle .nfv2-cv{cursor:none}",
+ ".mvx .mvx-bar button{flex:none;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:0!important;border-radius:8px;background:transparent!important;color:#fff!important;cursor:pointer;padding:0!important;min-height:0!important;box-shadow:none!important}",
+ ".mvx .mvx-bar button:hover{background:rgba(255,255,255,.15)!important}.mvx .mvx-bar button:focus-visible{outline:2px solid #fff;outline-offset:1px}",
+ ".mvx .mvx-bar button.off{opacity:.45}.mvx .mvx-bar svg{width:22px;height:22px;fill:currentColor}",
+ ".mvx .mvx-bar .nfv2-trk{flex:1;min-width:60px;position:relative;display:flex;align-items:center;height:24px;margin:0 6px}",
+ ".mvx .mvx-bar .nfv2-trk input[type=range]{-webkit-appearance:none!important;appearance:none!important;width:100%!important;height:4px!important;margin:0!important;padding:0!important;border:0!important;border-radius:2px!important;cursor:pointer;accent-color:#fff;"+
+   "background:linear-gradient(#fff,#fff) 0 0/var(--p,0%) 100% no-repeat,rgba(255,255,255,.35)!important}",
+ ".mvx .mvx-bar .nfv2-trk input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#fff;border:0;box-shadow:0 0 0 3px rgba(0,0,0,.15)}",
+ ".mvx .mvx-bar .nfv2-trk input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:0}",
+ ".mvx .mvx-bar .nfv2-trk input[type=range]::-moz-range-track{background:transparent;border:0}",
+ ".mvx .mvx-bar .nfv2-tk{position:absolute;left:0;right:0;top:50%;height:0;pointer-events:none}",
+ ".mvx .mvx-bar .nfv2-tk i{position:absolute;top:-2px;width:2px;height:4px;margin-left:-1px;background:rgba(0,0,0,.55)!important;border:0!important}",
+ ".mvx .mvx-bar .mvx-t{color:#fff!important;font-size:14px;white-space:nowrap;font-variant-numeric:tabular-nums;margin:0 4px}",
+ ".mvx .mvx-stage>#vs{position:absolute!important;left:50%!important;bottom:62px!important;top:auto!important;transform:translateX(-50%)!important;width:auto!important;max-width:86%!important;min-height:0!important;margin:0!important;padding:6px 14px!important;"+
+   "border:0!important;border-radius:8px!important;background:rgba(0,0,0,.72)!important;color:#fff!important;font-size:clamp(14px,1.9vw,20px)!important;line-height:1.4!important;text-align:center;z-index:9;display:block!important;pointer-events:none}",
+ ".mvx .mvx-stage>#vs:empty{display:none!important}",
+ ".mvx:is(:fullscreen,.nfv2-pfs){background:#000!important;max-width:none!important;margin:0!important;display:flex!important;flex-direction:column;justify-content:center}",
+ ".mvx:is(:fullscreen,.nfv2-pfs) .mvx-stage{width:100%;height:100%}.mvx:is(:fullscreen,.nfv2-pfs) .nfv2-cv{height:100%!important;aspect-ratio:auto!important;border-radius:0!important}",
+ ".mvx:is(:fullscreen,.nfv2-pfs) .mv-ch,.mvx:is(:fullscreen,.nfv2-pfs) .mv-eq{display:none}",
+ ".mvx.nfv2-pfs{position:fixed!important;inset:0!important;z-index:2000!important}",
+ ".mv-ch{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}.mv-ch button{min-height:44px}.mv-ch button.on{background:var(--gen)!important;border-color:var(--gen)!important;color:#fff!important}.mv-ch button.on small{color:#fff!important}",
+ ".mv-eq{margin:12px 0 0;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:18px}",
+ "@media (max-width:600px){.mvx .mvx-bar{gap:0;padding:24px 4px 2px}.mvx .mvx-bar button{width:34px;height:34px}.mvx .mvx-bar svg{width:20px;height:20px}.mvx .mvx-bar .mvx-t{font-size:11px;margin:0 2px}.mvx .nfv2-big{width:64px!important;height:64px!important}",
+ " .mvx:not(:fullscreen):not(.nfv2-pfs) .mvx-stage>#vs{position:static!important;transform:none!important;max-width:none!important;border-radius:0 0 10px 10px!important;margin-top:-10px!important;padding:16px 12px 8px!important;background:#111!important;font-size:14px!important}}"
+].join("");
 document.head.appendChild(css);
 var IC={play:'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',pause:'<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',
  vol:'<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>',
+ mute:'<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.6 3 2.7-2.7-1.3-1.3-2.7 2.7-2.7-2.7-1.3 1.3 2.7 2.7-2.7 2.7 1.3 1.3 2.7-2.7 2.7 2.7 1.3-1.3z"/></svg>',
  cc:'<svg viewBox="0 0 24 24"><path d="M19 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1zm7 0h-1.5v-.5h-2v3h2V13H18v1a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1z"/></svg>',
- fs:'<svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>'};
+ fs:'<svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>',
+ fsx:'<svg viewBox="0 0 24 24"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>'};
 function btn(ic,lab){var b=document.createElement("button");b.type="button";b.innerHTML=IC[ic];b.setAttribute("aria-label",lab);b.title=lab;return b;}
-function cards(main){Array.prototype.forEach.call(main.querySelectorAll(".nf-vc > canvas"),function(c){var s=document.createElement("span");s.className="mv-img";c.parentNode.insertBefore(s,c);s.appendChild(c);var i=document.createElement("i");i.setAttribute("aria-hidden","true");s.appendChild(i);});}
-function player(main){var sec=main.querySelector("section.nfv2");if(!sec||sec.classList.contains("mvx"))return;var cv=sec.querySelector(".nfv2-cv"),vp=sec.querySelector("#vp");if(!cv||!vp)return;
- sec.classList.add("mvx");var vs=sec.querySelector("#vs");if(vs)cv.appendChild(vs);
- var bar=document.createElement("div");bar.className="mvx-bar";
- var bp=btn("play","Ойнату");bp.onclick=function(e){e.stopPropagation();vp.click();};bar.appendChild(bp);
- var tr=sec.querySelector(".nfv2-trk")||sec.querySelector("#vr");if(tr)bar.appendChild(tr);var vt=sec.querySelector("#vt");if(vt)bar.appendChild(vt);
- function tog(id,ic,lab){var x=sec.querySelector(id);if(!x)return;var b=btn(ic,lab);function up(){b.classList.toggle("off",!x.checked);b.setAttribute("aria-pressed",x.checked?"true":"false");}
-  b.onclick=function(e){e.stopPropagation();x.checked=!x.checked;x.dispatchEvent(new Event("change",{bubbles:true}));x.dispatchEvent(new Event("input",{bubbles:true}));up();};up();bar.appendChild(b);}
- tog("#vfx","vol","Дыбыс эффектілері");tog("#vcap","cc","Субтитр");
- var fsb=sec.querySelector("#vfs")||sec.querySelector("#vfs2");if(fsb){var bf=btn("fs","Толық экран");bf.onclick=function(e){e.stopPropagation();fsb.click();};bar.appendChild(bf);}
+function isFs(sec){return document.fullscreenElement===sec||document.webkitFullscreenElement===sec||sec.classList.contains("nfv2-pfs");}
+function goFs(sec,media){if(isFs(sec)){if(document.fullscreenElement||document.webkitFullscreenElement){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}sec.classList.remove("nfv2-pfs");document.documentElement.style.overflow="";return;}
+ var r=sec.requestFullscreen||sec.webkitRequestFullscreen;if(r){try{var p=r.call(sec);if(p&&p.catch)p.catch(function(){pfs();});return;}catch(e){}}
+ if(media&&media.webkitEnterFullscreen){try{media.webkitEnterFullscreen();return;}catch(e){}}pfs();
+ function pfs(){sec.classList.add("nfv2-pfs");document.documentElement.style.overflow="hidden";}}
+/* ортақ: басқару тақтасы, жасырыну, үлкен батырма */
+function chrome(sec,o){var cv=sec.querySelector(".nfv2-cv"),bar=document.createElement("div");bar.className="mvx-bar";
+ var bp=btn("play","Ойнату");bp.onclick=function(e){e.stopPropagation();o.toggle();};bar.appendChild(bp);
+ bar.appendChild(o.track);var tt=document.createElement("span");tt.className="mvx-t";bar.appendChild(tt);
+ (o.toggles||[]).forEach(function(t){var b=btn(t.ic,t.lab);function up(){var on=t.get();b.classList.toggle("off",!on);b.setAttribute("aria-pressed",on?"true":"false");if(t.ic2)b.innerHTML=on?IC[t.ic]:IC[t.ic2];}
+  b.onclick=function(e){e.stopPropagation();t.set(!t.get());up();};up();bar.appendChild(b);});
+ var bf=btn("fs","Толық экран");bf.onclick=function(e){e.stopPropagation();goFs(sec,o.media);};bar.appendChild(bf);
  cv.appendChild(bar);
- function playing(){return /Тоқтат|❚|⏸|Пауза/.test(vp.textContent);}
- function sync(){var p=playing();bp.innerHTML=p?IC.pause:IC.play;bp.setAttribute("aria-label",p?"Тоқтату":"Ойнату");bp.title=bp.getAttribute("aria-label");if(!p)sec.classList.remove("mvx-idle");}
- new MutationObserver(sync).observe(vp,{childList:true,characterData:true,subtree:true});sync();
- var it=null;function wake(){sec.classList.remove("mvx-idle");clearTimeout(it);it=setTimeout(function(){if(playing()&&!bar.contains(document.activeElement))sec.classList.add("mvx-idle");},2500);}
+ var big=sec.querySelector(".nfv2-big");if(big){big.innerHTML=IC.play;big.onclick=function(e){e.stopPropagation();o.toggle();};}
+ var range=o.track.querySelector("input");
+ function sync(){if(!sec.isConnected){clearInterval(iv);return;}var p=o.playing();bp.innerHTML=p?IC.pause:IC.play;bp.setAttribute("aria-label",p?"Тоқтату":"Ойнату");bp.title=bp.getAttribute("aria-label");
+  if(big)big.classList.toggle("mvx-h",p);if(!p)sec.classList.remove("mvx-idle");
+  var c=o.cur(),d=o.dur();tt.textContent=fmt(c)+" / "+fmt(d);if(range)range.style.setProperty("--p",(d?Math.min(100,c/d*100):0)+"%");
+  var fs=isFs(sec);bf.innerHTML=fs?IC.fsx:IC.fs;bf.setAttribute("aria-label",fs?"Толық экраннан шығу":"Толық экран");
+  if(o.chap)$$(sec,".mv-ch button").forEach(function(b,i,a){var t0=+b.getAttribute("data-t"),t1=a[i+1]?+a[i+1].getAttribute("data-t"):1e9;b.classList.toggle("on",c>=t0-.05&&c<t1-.05);});}
+ var iv=setInterval(sync,120);sync();
+ var it=null;function wake(){sec.classList.remove("mvx-idle");clearTimeout(it);it=setTimeout(function(){if(o.playing()&&!bar.contains(document.activeElement))sec.classList.add("mvx-idle");},2500);}
  ["mousemove","touchstart","keydown","click"].forEach(function(ev){sec.addEventListener(ev,wake,{passive:true});});
- cv.addEventListener("click",function(e){if(bar.contains(e.target)||e.target.closest(".nfv2-big,.nfv2-end,button,a"))return;vp.click();});
-}
-function wrap(){var old=(typeof PAGES!=="undefined"&&PAGES.videos)||(window.NF&&NF.videoPage);if(!old||old.__mvx)return;
- var f=function(main,tab){old(main,tab);try{if(!tab)cards(main);else player(main);}catch(e){}};f.__mvx=true;f.__mv=true;
- if(typeof PAGES!=="undefined")PAGES.videos=f;if(window.NF)NF.videoPage=f;
+ cv.addEventListener("click",function(e){if(bar.contains(e.target)||e.target.closest(".nfv2-big,.nfv2-end,button,a"))return;o.toggle();});
+ sec.addEventListener("keydown",function(e){if(e.target.closest("input,select,textarea"))return;if(e.key===" "||e.key==="k"){e.preventDefault();o.toggle();}else if(e.key==="f"||e.key==="F"){goFs(sec,o.media);}});
+ document.addEventListener("fullscreenchange",sync);}
+function chapList(list){return '<div class="mv-ch" role="group" aria-label="Бөлімдер">'+list.map(function(c,i){return '<button type="button" class="pill" data-t="'+c[1]+'">'+(i+1)+'. '+esc(c[0])+' <small>'+fmt(c[1])+'</small></button>';}).join("")+'</div>';}
+function ticks(list,d){return '<div class="nfv2-tk">'+list.slice(1).map(function(c){return '<i style="left:'+(c[1]/d*100).toFixed(2)+'%"></i>';}).join("")+'</div>';}
+/* MP4 бет */
+function mp4Page(main,cur){
+ main.innerHTML=head("Бейне-сабақтар",cur.n,cur.d)+'<p><a class="btn" href="#videos">← Барлық бейне</a></p>'+
+  '<section class="tool nf mvx" tabindex="-1"><div class="mvx-stage"><div class="nfv2-cv"><video playsinline preload="metadata" poster="'+cur.poster+'" src="'+cur.src+'" aria-label="'+esc(cur.n)+'"></video><button type="button" class="nfv2-big" aria-label="Ойнату"></button></div></div>'+
+  chapList(cur.ch)+'<p class="mv-eq">Негізгі теңдеу: '+cur.eq+'</p></section>';
+ var sec=main.querySelector(".mvx"),vd=sec.querySelector("video");
+ var trk=document.createElement("div");trk.className="nfv2-trk";trk.innerHTML='<input type="range" min="0" max="1000" value="0" aria-label="Бейне уақыты">';
+ var rg=trk.querySelector("input"),seeking=false;
+ rg.addEventListener("input",function(){seeking=true;if(vd.duration)vd.currentTime=rg.value/1000*vd.duration;});rg.addEventListener("change",function(){seeking=false;});
+ vd.addEventListener("timeupdate",function(){if(!seeking&&vd.duration)rg.value=Math.round(vd.currentTime/vd.duration*1000);});
+ vd.addEventListener("loadedmetadata",function(){if(!trk.querySelector(".nfv2-tk"))trk.insertAdjacentHTML("beforeend",ticks(cur.ch,vd.duration));});
+ chrome(sec,{media:vd,track:trk,chap:true,toggle:function(){if(vd.paused){var p=vd.play();if(p&&p.catch)p.catch(function(){});}else vd.pause();},playing:function(){return !vd.paused&&!vd.ended;},
+  cur:function(){return vd.currentTime||0;},dur:function(){return vd.duration||0;},
+  toggles:[{ic:"vol",ic2:"mute",lab:"Дыбыс",get:function(){return !vd.muted;},set:function(v){vd.muted=!v;}}]});
+ $$(sec,".mv-ch button").forEach(function(b){b.addEventListener("click",function(){try{vd.currentTime=+b.getAttribute("data-t");var p=vd.play();if(p&&p.catch)p.catch(function(){});}catch(e){}});});}
+/* анимация беті: бар ойнатқышты сол үлгіге келтіру */
+function canvasPage(main){var sec=main.querySelector("section.nfv2");if(!sec||sec.classList.contains("mvx"))return;var cv=sec.querySelector(".nfv2-cv"),vp=sec.querySelector("#vp"),rg=sec.querySelector("#vr");if(!cv||!vp||!rg)return;
+ sec.classList.add("mvx");var st=document.createElement("div");st.className="mvx-stage";cv.parentNode.insertBefore(st,cv);st.appendChild(cv);var vs=sec.querySelector("#vs");if(vs)st.appendChild(vs);
+ var trk=sec.querySelector(".nfv2-trk");if(!trk){trk=document.createElement("div");trk.className="nfv2-trk";trk.appendChild(rg);}
+ var vt=sec.querySelector("#vt");function D(){var m=vt&&/\/\s*(\d+):(\d+)/.exec(vt.textContent);return m?(+m[1])*60+(+m[2]):0;}function C(){return rg.value/1000*D();}
+ // бөлімдер: шкаладағы белгілерден
+ var pc=$$(trk,".nfv2-tk i").map(function(i){return parseFloat(i.style.left)||0;});var d=D();
+ if(d){var ch=[["бөлім",0]].concat(pc.map(function(p){return ["бөлім",p/100*d];}));var box=document.createElement("div");box.innerHTML=chapList(ch.map(function(c){return [c[0],Math.round(c[1]*10)/10];}));
+  var el=box.firstChild;$$(el,"button").forEach(function(b,i){b.innerHTML=(i+1)+'-бөлім <small>'+fmt(+b.getAttribute("data-t"))+'</small>';
+   b.addEventListener("click",function(){rg.value=Math.round(+b.getAttribute("data-t")/D()*1000);rg.dispatchEvent(new Event("input",{bubbles:true}));if(!/Тоқтат|⏸/.test(vp.textContent))vp.click();});});
+  sec.appendChild(el);}
+ function chk(id){return sec.querySelector(id);}
+ var tg=[];[["#vfx","vol","mute","Дыбыс эффектілері"],["#vx","vol","mute","Диктор дауысы"],["#vcap","cc",null,"Субтитр"]].forEach(function(a){var x=chk(a[0]);if(!x)return;
+  tg.push({ic:a[1],ic2:a[2],lab:a[3],get:function(){return x.checked;},set:function(v){x.checked=v;x.dispatchEvent(new Event("change",{bubbles:true}));x.dispatchEvent(new Event("input",{bubbles:true}));}});});
+ chrome(sec,{media:null,track:trk,chap:!!d,toggle:function(){vp.click();},playing:function(){return /Тоқтат|⏸/.test(vp.textContent);},cur:C,dur:D,toggles:tg});}
+function card(v){return '<a class="nf-vc" href="#videos/'+v.id+'"><span class="mv-img"><img src="'+v.poster+'" alt="" loading="lazy" width="960" height="540"><i aria-hidden="true"></i></span><span class="mv-new">Жаңа</span><b>'+esc(v.n)+'</b><p>'+esc(v.d)+'</p><span>'+v.dur+' · '+v.ch.length+' бөлім</span></a>';}
+function listPage(main){$$(main,".nf-vc > canvas").forEach(function(c){var s=document.createElement("span");s.className="mv-img";c.parentNode.insertBefore(s,c);s.appendChild(c);var i=document.createElement("i");i.setAttribute("aria-hidden","true");s.appendChild(i);});
+ var g=main.querySelector(".nf-vg");if(g&&!main.querySelector(".mv-sec")){var s=document.createElement("section");s.className="mv-sec";
+  s.innerHTML='<h2>Қазақстан өнеркәсібі</h2><p>Нағыз зауыттардағы химия — диктор дауысымен, 1,5 минуттық бейнелер.</p><div class="nf-vg">'+MV.map(card).join("")+'</div><h2>Анимациялық сабақтар</h2>';g.parentNode.insertBefore(s,g);}}
+function wrap(){var old=(typeof PAGES!=="undefined"&&PAGES.videos)||(window.NF&&NF.videoPage);if(!old||old.__v168)return;
+ var f=function(main,tab){var cur=MV.filter(function(v){return v.id===tab;})[0];
+  if(cur){var nav=null;try{old(main,"");nav=main.querySelector("nav.x-tabs2");if(nav)nav.parentNode.removeChild(nav);}catch(e){}main.className="main wide part-a";mp4Page(main,cur);if(nav){var h=main.querySelector(".mh")||main.firstElementChild;h.parentNode.insertBefore(nav,h.nextSibling);}return;}
+  old(main,tab);try{if(!tab)listPage(main);else canvasPage(main);}catch(e){}};
+ f.__v168=true;if(typeof PAGES!=="undefined")PAGES.videos=f;if(window.NF)NF.videoPage=f;
  try{if(/^#videos/.test(location.hash||"")&&typeof route==="function"){if(typeof curKey!=="undefined")curKey=null;route();}}catch(e){}}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",function(){setTimeout(wrap,0);});else setTimeout(wrap,0);
 })();
