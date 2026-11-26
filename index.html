@@ -5379,4 +5379,55 @@ function wrap(){
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wrap);else wrap();
 })();
 </script>
+<script>
+/* ===== V167: бейне ойнатқыштың бірыңғай стилі (MP4 сияқты) ===== */
+(function(){
+var css=document.createElement("style");css.textContent=
+ ".nf-vc .mv-img canvas{width:100%!important;height:100%!important;aspect-ratio:auto!important;border-radius:0!important;display:block}"+
+ ".mvx{padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;max-width:960px;margin:0 auto}"+
+ ".mvx .nfv2-cv{position:relative!important;background:#000!important;border:0!important;border-radius:14px!important;overflow:hidden!important;max-width:none!important}"+
+ ".mvx>.nf-ctl{display:none!important}.mvx .nfv2-fs{display:none!important}"+
+ ".mvx .mvx-bar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:6px;padding:30px 10px 8px;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.65));color:#fff;z-index:8;transition:opacity .3s}"+
+ ".mvx.mvx-idle .mvx-bar{opacity:0;pointer-events:none}.mvx.mvx-idle .nfv2-cv{cursor:none}"+
+ ".mvx .mvx-bar button{flex:none;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:0;border-radius:8px;background:transparent;color:#fff;cursor:pointer;padding:0}"+
+ ".mvx .mvx-bar button:hover{background:rgba(255,255,255,.14)}.mvx .mvx-bar button:focus-visible{outline:2px solid #fff;outline-offset:1px}"+
+ ".mvx .mvx-bar button.off{opacity:.5}.mvx .mvx-bar svg{width:22px;height:22px;fill:currentColor}"+
+ ".mvx .mvx-bar .nfv2-trk{flex:1;min-width:60px;position:relative}.mvx .mvx-bar #vr{width:100%;accent-color:#fff;margin:0}"+
+ ".mvx .mvx-bar .nfv2-tk i{background:rgba(255,255,255,.5)!important}"+
+ ".mvx .mvx-bar #vt{color:#fff!important;font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}"+
+ ".mvx .nfv2-cv #vs{position:absolute!important;left:50%!important;bottom:62px!important;transform:translateX(-50%)!important;width:auto!important;max-width:88%!important;min-height:0!important;margin:0!important;padding:6px 14px!important;"+
+  "border:0!important;border-radius:8px!important;background:rgba(0,0,0,.72)!important;color:#fff!important;font-size:clamp(13px,2.1vw,19px)!important;line-height:1.4!important;text-align:center;z-index:7;display:block!important}"+
+ ".mvx .nfv2-cv #vs:empty{display:none!important}"+
+ ".mvx:is(:fullscreen,.nfv2-pfs){background:#000!important;max-width:none!important;margin:0!important;display:flex!important;align-items:center;justify-content:center}"+".mvx:is(:fullscreen,.nfv2-pfs) .nfv2-cv{width:100%!important;height:100%!important;border-radius:0!important;display:flex!important;align-items:center;justify-content:center;aspect-ratio:auto!important}"+".mvx:is(:fullscreen,.nfv2-pfs) .nfv2-cv canvas{width:100%!important;height:auto!important;max-height:100%!important;object-fit:contain}"+"@media (max-width:600px){.mvx .mvx-bar{gap:0;padding:22px 2px 2px}.mvx .mvx-bar button{width:34px;height:34px}.mvx .mvx-bar svg{width:20px;height:20px}.mvx .mvx-bar #vt{font-size:11px}"+".mvx:not(:fullscreen):not(.nfv2-pfs) .nfv2-cv{display:flex!important;flex-direction:column}.mvx:not(:fullscreen):not(.nfv2-pfs) .nfv2-cv .mvx-bar{position:relative;order:3;background:#000;padding:2px}"+".mvx:not(:fullscreen):not(.nfv2-pfs) .nfv2-cv #vs{position:static!important;transform:none!important;max-width:none!important;border-radius:0!important;background:#111!important;font-size:14px!important;order:2}}";
+document.head.appendChild(css);
+var IC={play:'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',pause:'<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',
+ vol:'<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>',
+ cc:'<svg viewBox="0 0 24 24"><path d="M19 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1zm7 0h-1.5v-.5h-2v3h2V13H18v1a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1z"/></svg>',
+ fs:'<svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>'};
+function btn(ic,lab){var b=document.createElement("button");b.type="button";b.innerHTML=IC[ic];b.setAttribute("aria-label",lab);b.title=lab;return b;}
+function cards(main){Array.prototype.forEach.call(main.querySelectorAll(".nf-vc > canvas"),function(c){var s=document.createElement("span");s.className="mv-img";c.parentNode.insertBefore(s,c);s.appendChild(c);var i=document.createElement("i");i.setAttribute("aria-hidden","true");s.appendChild(i);});}
+function player(main){var sec=main.querySelector("section.nfv2");if(!sec||sec.classList.contains("mvx"))return;var cv=sec.querySelector(".nfv2-cv"),vp=sec.querySelector("#vp");if(!cv||!vp)return;
+ sec.classList.add("mvx");var vs=sec.querySelector("#vs");if(vs)cv.appendChild(vs);
+ var bar=document.createElement("div");bar.className="mvx-bar";
+ var bp=btn("play","Ойнату");bp.onclick=function(e){e.stopPropagation();vp.click();};bar.appendChild(bp);
+ var tr=sec.querySelector(".nfv2-trk")||sec.querySelector("#vr");if(tr)bar.appendChild(tr);var vt=sec.querySelector("#vt");if(vt)bar.appendChild(vt);
+ function tog(id,ic,lab){var x=sec.querySelector(id);if(!x)return;var b=btn(ic,lab);function up(){b.classList.toggle("off",!x.checked);b.setAttribute("aria-pressed",x.checked?"true":"false");}
+  b.onclick=function(e){e.stopPropagation();x.checked=!x.checked;x.dispatchEvent(new Event("change",{bubbles:true}));x.dispatchEvent(new Event("input",{bubbles:true}));up();};up();bar.appendChild(b);}
+ tog("#vfx","vol","Дыбыс эффектілері");tog("#vcap","cc","Субтитр");
+ var fsb=sec.querySelector("#vfs")||sec.querySelector("#vfs2");if(fsb){var bf=btn("fs","Толық экран");bf.onclick=function(e){e.stopPropagation();fsb.click();};bar.appendChild(bf);}
+ cv.appendChild(bar);
+ function playing(){return /Тоқтат|❚|⏸|Пауза/.test(vp.textContent);}
+ function sync(){var p=playing();bp.innerHTML=p?IC.pause:IC.play;bp.setAttribute("aria-label",p?"Тоқтату":"Ойнату");bp.title=bp.getAttribute("aria-label");if(!p)sec.classList.remove("mvx-idle");}
+ new MutationObserver(sync).observe(vp,{childList:true,characterData:true,subtree:true});sync();
+ var it=null;function wake(){sec.classList.remove("mvx-idle");clearTimeout(it);it=setTimeout(function(){if(playing()&&!bar.contains(document.activeElement))sec.classList.add("mvx-idle");},2500);}
+ ["mousemove","touchstart","keydown","click"].forEach(function(ev){sec.addEventListener(ev,wake,{passive:true});});
+ cv.addEventListener("click",function(e){if(bar.contains(e.target)||e.target.closest(".nfv2-big,.nfv2-end,button,a"))return;vp.click();});
+}
+function wrap(){var old=(typeof PAGES!=="undefined"&&PAGES.videos)||(window.NF&&NF.videoPage);if(!old||old.__mvx)return;
+ var f=function(main,tab){old(main,tab);try{if(!tab)cards(main);else player(main);}catch(e){}};f.__mvx=true;f.__mv=true;
+ if(typeof PAGES!=="undefined")PAGES.videos=f;if(window.NF)NF.videoPage=f;
+ try{if(/^#videos/.test(location.hash||"")&&typeof route==="function"){if(typeof curKey!=="undefined")curKey=null;route();}}catch(e){}}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",function(){setTimeout(wrap,0);});else setTimeout(wrap,0);
+})();
+</script>
 </body></html>
